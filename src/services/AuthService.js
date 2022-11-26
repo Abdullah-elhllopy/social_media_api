@@ -68,7 +68,6 @@ class AuthService {
             throw error;
         }
     }
-
     async logout( token ) {
         try {
             await this.model.deleteOne( { token } );
@@ -82,10 +81,8 @@ class AuthService {
         try {
             // Check if the token is in the Database
             const tokenInDB = await this.model.countDocuments( { token } );
-
             if ( !tokenInDB ) {
                 const error = new Error( 'Invalid Token' );
-
                 error.statusCode = 401;
                 throw error;
             }
@@ -97,6 +94,7 @@ class AuthService {
 
                 error.statusCode = 401;
                 throw error;
+                
             }
             // Check the Extracted user is active in DB
             const userFromDb = await this.userService.get( user._id );
@@ -108,7 +106,7 @@ class AuthService {
 
             error.statusCode = 401;
             throw error;
-            
+
         } catch ( e ) {
             const error = new Error( 'Invalid Token' );
 

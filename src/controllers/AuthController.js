@@ -28,7 +28,6 @@ class AuthController {
     async register( req, res, next ) {
         try {
             const registeredUserData = await this.service.register( req.body );
-
             await res.status( 200 ).json( registeredUserData );
         } catch ( e ) {
             next( e );
@@ -69,27 +68,27 @@ class AuthController {
         }
     }
 
-    async checkLogin( req, res, next ) {
-        try {
-            const token = this.extractToken( req );
+    // async checkLogin( req, res, next ) {
+    //     try {
+    //         const token = this.extractToken( req );
 
-            req.user = await this.service.checkLogin( token );
-            req.authorized = true;
-            req.token = token;
-            next();
-        } catch ( e ) {
-            next( e );
-        }
-    }
+    //         req.user = await this.service.checkLogin( token );
+    //         req.authorized = true;
+    //         req.token = token;
+    //         next();
+    //     } catch ( e ) {
+    //         next( e );
+    //     }
+    // }
 
-    extractToken( req ) {
-        if ( req.headers.authorization && req.headers.authorization.split( ' ' )[ 0 ] === 'Bearer' ) {
-            return req.headers.authorization.split( ' ' )[ 1 ];
-        } else if ( req.query && req.query.token ) {
-            return req.query.token;
-        }
-        return null;
-    }
+    // extractToken( req ) {
+    //     if ( req.headers.authorization && req.headers.authorization.split( ' ' )[ 0 ] === 'Bearer' ) {
+    //         return req.headers.authorization.split( ' ' )[ 1 ];
+    //     } else if ( req.query && req.query.token ) {
+    //         return req.query.token;
+    //     }
+    //     return null;
+    // }
 
 
 }

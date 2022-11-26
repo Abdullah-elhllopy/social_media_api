@@ -2,9 +2,9 @@
 const PostController = require( '../controllers/PostController' );
 const express = require( 'express' ),
     router = express.Router();
-const AuthController = require( '../controllers/AuthController' );
+const AuthMiddleware = require( '../middlewares/Auth/AuthMiddleware');
 
-router.get( '/', AuthController.checkLogin, PostController.getAll );
+router.get( '/', AuthMiddleware.checkLogin, PostController.getAll );
 router.get( '/:id', PostController.get );
 router.post( '/', PostController.insert );
 router.put( '/:id', PostController.update );
